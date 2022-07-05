@@ -1,32 +1,53 @@
 import 'package:flutter/material.dart';
-import '../providers/product.dart';
+
 import '../widgets/products_grid.dart';
 
-class ProductsOverviewScreen extends StatelessWidget {
-  final List<Product> loadedProducts = [];
+enum FilterOptions {
+  Favorites,
+  All,
+}
+
+class ProductsOverviewScreen extends StatefulWidget {
+  @override
+  _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
+}
+
+class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
+  var _showOnlyFavorites = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('My Shop'),
-          // Switching between favourites and all products with a pop up menu
-          actions: <Widget>[
-            PopupMenuButton(
-              onSelected: (int selectedValue) {},
-              icon: Icon(
-                Icons.more_vert,
-              ),
-              itemBuilder: (_) => [
-                PopupMenuItem(child: Text('Only Favourites'), value: 0),
-                PopupMenuItem(
-                  child: Text('Show All'),
-                  value: 1,
-                ),
-              ],
+      appBar: AppBar(
+        title: Text('MyShop'),
+        actions: <Widget>[
+          PopupMenuButton(
+            onSelected: (FilterOptions selectedValue) {
+              setState(() {
+                if (selectedValue == FilterOptions.Favorites) {
+                  _showOnlyFavorites = true;
+                } else {
+                  _showOnlyFavorites = false;
+                }
+              });
+            },
+            icon: Icon(
+              Icons.more_vert,
             ),
-          ],
-        ),
-        body: ProductsGrid());
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: Text('Only Favorites'),
+                value: FilterOptions.Favorites,
+              ),
+              PopupMenuItem(
+                child: Text('Show All'),
+                value: FilterOptions.All,
+              ),
+            ],
+          ),
+        ],
+      ),
+      body: ProductsGrid(_showOnlyFavorites),
+    );
   }
 }
