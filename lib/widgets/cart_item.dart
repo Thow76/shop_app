@@ -2,14 +2,18 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import '../screens/cart_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/cart.dart';
 
 class CartItemList extends StatelessWidget {
   final String id;
+  final String productId;
   final double price;
   final int quantity;
   final String title;
 
-  const CartItemList(this.id, this.price, this.quantity, this.title);
+  const CartItemList(
+      this.id, this.productId, this.price, this.quantity, this.title);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +30,9 @@ class CartItemList extends StatelessWidget {
         padding: EdgeInsets.only(right: 20),
       ),
       direction: DismissDirection.endToStart,
+      onDismissed: (direction) {
+        Provider.of<Cart>(context, listen: false).removeItem(productId);
+      },
       child: Card(
         margin: EdgeInsets.symmetric(
           horizontal: 15,
