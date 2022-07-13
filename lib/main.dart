@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/providers/orders.dart';
 import 'package:shop_app/providers/product.dart';
 import 'package:shop_app/screens/cart_screen.dart';
 import './screens/products_overview_screen.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => Cart(),
         ),
+        ChangeNotifierProvider(create: (ctx) => Orders())
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
