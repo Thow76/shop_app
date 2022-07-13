@@ -54,7 +54,8 @@ class ProductItem extends StatelessWidget {
               Icons.shopping_cart,
             ),
             onPressed: () {
-              cart.addItems(product.id, product.price, product.title);
+              cart.addItem(product.id, product.price, product.title);
+              Scaffold.of(context).hideCurrentSnackBar();
               Scaffold.of(context).showSnackBar(
                 SnackBar(
                   content: Text(
@@ -63,7 +64,9 @@ class ProductItem extends StatelessWidget {
                   duration: Duration(seconds: 2),
                   action: SnackBarAction(
                     label: 'UNDO',
-                    onPressed: () {},
+                    onPressed: () {
+                      cart.removeSingleItem(product.id);
+                    },
                   ),
                 ),
               );
