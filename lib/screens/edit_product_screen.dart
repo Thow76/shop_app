@@ -91,7 +91,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
       return;
     }
     _form.currentState!.save();
+    /**if (_editedProduct.id != null) {
+      Provider.of<Products>(context, listen: false)
+          .updateProduct(_editedProduct.id!, _editedProduct);
+    } else {}
+      */
     Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
+
     Navigator.of(context).pop();
   }
 
@@ -133,6 +139,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     description: _editedProduct.description,
                     imageURL: _editedProduct.imageURL,
                     id: null,
+                    //id: _editedProduct.id,
+                    //isFavorite: _editedProduct.isFavorite,
                   );
                 },
               ),
@@ -164,6 +172,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     description: _editedProduct.description,
                     imageURL: _editedProduct.imageURL,
                     id: null,
+                    //id: _editedProduct.id,
+                    //isFavorite: _editedProduct.isFavorite,
                   );
                 },
               ),
@@ -189,6 +199,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                     description: value,
                     imageURL: _editedProduct.imageURL,
                     id: null,
+                    //id: _editedProduct.id,
+                    //isFavorite: _editedProduct.isFavorite,
                   );
                 },
               ),
@@ -249,6 +261,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           description: _editedProduct.description,
                           imageURL: value,
                           id: null,
+                          //id: _editedProduct.id,
+                          //isFavorite: _editedProduct.isFavorite,
                         );
                       },
                     ),
