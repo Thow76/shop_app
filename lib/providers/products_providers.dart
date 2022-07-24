@@ -70,23 +70,26 @@ class Products with ChangeNotifier {
   void addProduct(Product product) {
     final url = Uri.parse(
         'https://shop-app-aae96-default-rtdb.europe-west1.firebasedatabase.app/.json');
-    http.post(url,
-        body: json.encode({
-          'title': product.title,
-          'description': product.description,
-          'imageUrl': product.imageURL,
-          'price': product.price,
-          'isFavorite': product.isFavorite,
-        }));
-    final newProduct = Product(
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        imageURL: product.imageURL,
-        id: DateTime.now().toString());
-    _items.add(newProduct);
-    //_items.insert(0, newProduct); // start of the
-    notifyListeners();
+    http
+        .post(url,
+            body: json.encode({
+              'title': product.title,
+              'description': product.description,
+              'imageUrl': product.imageURL,
+              'price': product.price,
+              'isFavorite': product.isFavorite,
+            }))
+        .then((response) {
+      final newProduct = Product(
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageURL: product.imageURL,
+          id: DateTime.now().toString());
+      _items.add(newProduct);
+      //_items.insert(0, newProduct); // start of the
+      notifyListeners();
+    });
   }
 
   void deleteProduct(String id) {
